@@ -1,6 +1,10 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <iomanip>
+
+
+
 using namespace std;
 
 class Person {
@@ -66,7 +70,7 @@ double Person::calcFinalGrade() {
 istream& operator>>(istream& input, Person& p) {
     cout << "Please enter student's name and surname: ";
     input >> p.firstName >> p.surName;
-    cout << "Please input how many homeworks were submitted by the Student: ";
+    cout << "Please input how many homeworks were submitted by " << p.firstName << ": ";
     int n;
     input >> n;
     for (int i = 0; i < n; i++) {
@@ -87,7 +91,7 @@ ostream& operator<<(ostream& out, Person& p) {
     out.width(20);
     out << p.surName;
     out.width(20);
-    out << p.calcFinalGrade();
+    out << fixed << setprecision(2) << p.calcFinalGrade();
 
     return out;
 }
@@ -120,3 +124,4 @@ int main() {
 
     return 0;
 }
+
