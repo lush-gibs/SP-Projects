@@ -16,7 +16,7 @@ int main()
             stringstream myBuffer;
             vector<Person> personInFile;
 
-            std::ifstream file("students10000.txt");
+            std::ifstream file("students20.txt");        //type in file to input from
 
             if (file.is_open())
             {
@@ -85,7 +85,7 @@ int main()
             string line(79, '-');           //to get accurate width of line but it's not accurate for some reason, even though 83 is the width of previous line
             cout << line << endl;
 
-                for (auto student : personInFile)             // calculates Average and median and then prints each line in the file with results in console.
+                for (auto student : personInFile)             //loops through persons and  calculates Average and median and then prints each line in the file with results in console.
                 {
                     cout << left << student;
 
