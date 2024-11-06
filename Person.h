@@ -1,3 +1,6 @@
+#ifndef Person_H
+#define Person_H
+
 #include "MyLib.h"
 
 class Person {
@@ -33,3 +36,5 @@ public:
 
     double getGrade();
 };
+
+#endif

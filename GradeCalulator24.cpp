@@ -1,143 +1,75 @@
-#include "Person.h"
+#include "OutputPerson.h"
+#include "InputPerson.h"
 
-int main() 
+
+int main()
 {
     srand(time(0));     //seed for rand fucntion to generate from time
 
-    cout << "Press '1' to input student details from file or '2' to input student details manually: ";
+    cout << "1.Input students from file\t2.Output Random Students to file\t3.Input students manually\n" << endl;
     int studentInputChoice;
-    cin >> studentInputChoice;
 
-    // section to input information from file , change file name to check you file
+    while (true)
+    {
+        cout << "Please choose option 1 , 2 or 3: ";
+        cin >> studentInputChoice;
+        if (cin.fail())
+            clearWrongInputs();
 
-        if (studentInputChoice == 1)
-        {
-            vector <vector <string>> fileInfo;
-            stringstream myBuffer;
-            vector<Person> personInFile;
+        else if (studentInputChoice == 1 || studentInputChoice == 2 || studentInputChoice == 3)
+            break;
 
-            std::ifstream file("students20.txt");        //type in file to input from
-
-            if (file.is_open())
-            {
-                myBuffer << file.rdbuf();
-                file.close();
-            }
-            else
-            {
-                std::cerr << "File not found\n";
-            }
-
-            vector <string> wordsInLine;           
-            string lineOfFile;
-            
-            while(std::getline(myBuffer, lineOfFile))
-            {
-                wordsInLine.clear();
-                std::istringstream is(lineOfFile);                  // prepares each line in file to be read
-                string word;
-
-                while(is >> word)                                     // words in line are read separately using the word variable
-                {
-                    wordsInLine.push_back(word);                             // fill the vector of string with each word from line
-                }
-                fileInfo.push_back(wordsInLine);                    //fill the vector with vector of string
-            }
-
-            bool firstLine = true;
-
-            for (auto& lines : fileInfo)            // loops through entire vector which contains the file information, 1 index in vector is for each line in file
-            {
-                if (firstLine)
-                {
-                  
-                    firstLine = false;
-                    continue;                       //skips first line in the file 
-                }
-
-                Person p;
-                vector<double> hw;
-
-                p.setFirstName(lines[0]);                           //sets object firstname with first word in the vector of string
-
-                if (lines.size() > 1)
-                    p.setSurname(lines[1]);
-
-                    for (int i = 2; i < lines.size(); i++)
-                    {
-                        double value = std::stod(lines[i]);      //converts string to double
-
-                        if (i < lines.size() - 1)                      //checks if index is not on the last column which is reserved for exam scores
-                            hw.push_back(value);
-                        else
-                            p.setExamScore(value);
-                    }
-
-                    p.setHomework(hw);
-                    personInFile.push_back(p);
-                }
-            
-            cout<< left << setw(20) << "Name"                   //format for header of file
-                << setw(20) << "Surname"
-                << right << setw(20) << "Final (Avg. )" << " | "
-                << left << setw(20) << "Final (Med. )" << endl;
-
-            string line(79, '-');           //to get accurate width of line but it's not accurate for some reason, even though 83 is the width of previous line
-            cout << line << endl;
-
-                for (auto student : personInFile)             //loops through persons and  calculates Average and median and then prints each line in the file with results in console.
-                {
-                    cout << left << student;
-
-                    student.calcAverage();
-                    cout << fixed << setprecision(2) <<  right << setw(20) << student.getGrade() << " | ";
-
-                    student.calcMedian();
-                    cout << fixed << setprecision(2) << setw(15) << student.getGrade() << endl;
-                }
-        }
-    
-      // section to input information manually into person class
-
-        else if (studentInputChoice == 2)
-        {
-            cout << "Please input number of students: ";
-            int n;
-            cin >> n;
-
-            cout << "\nCalculate Grade with:\n1. Average\n2. Median\ninput 1 for average and 2 for median: ";
-            int m;
-            cin >> m;
-
-            vector<Person> arr(n);
-
-            for (Person& student : arr)
-            {
-                cin >> student;                 // calls overloaded cin to input data into Persons class member variables until number of students required has reached
-            }
-
-            cout.setf(ios::left);           //formats header for manual input of students
-            cout.width(20);
-            cout << "Name";
-            cout.width(20);
-            cout << "Surname";
-            cout.width(20);
-            cout << ((m == 1) ? "Final_point(Aver.)" : "Final_point(Median)") << endl;
-            cout << "------------------------------------------------------------" << endl;
-
-            for (Person& student : arr) {
-                cout << student;        //calls overloaded cout to print first and last name of student
-                
-                student.calcFinalGrade(m);                  //calculates and updates the grade member of persons class based on user's choice
-
-                cout << fixed << setw(20) <<  setprecision(2) << student.getGrade() << endl;
-            }
-        }
         else
-        {
-            cout << "Invalid Selection! Select option 1 or 2." << endl;
-            cout << "Restart program." << endl;
-        }
+            cout << "invalid Selection! ";
+    }
 
-        return 0;
+    if (studentInputChoice == 1)       // Read INPUT from file 
+    {
+        /*   cout << "Enter name of file to be read..\nexample, Filename.txt:  ";
+        string nameOfFile;
+        cin >> nameOfFile;*/
+
+        vector <Person> filePersons = inputFile("students10000.txt");
+        outputSortedGrade(filePersons);
+
+        /*   if (!filePersons.empty())
+        {
+            cout << "\nDo you want to Sort and Split students in two file, passed/failed?";
+            string choice;
+            while (true)
+            {
+                cout << "Input Y/N: ";
+                cin >> choice;
+                if (choice == "Y" || choice == "N" || choice == "n" || choice == "y")
+                    break;
+                else
+                    cout << "invalid selection! ";
+            }
+            if (choice == "Y" || choice == "y")
+                outputSortedGrade(filePersons);
+
+           // printGrades_AverAndMed(filePersons);
+        }
+        else return 1;*/
+        
+    }
+
+    if (studentInputChoice == 2)            //Output random students to file
+    {
+       cout << "\nPlease type in Name of file you want to create or replace... \nexample, 'Filename.txt': ";
+       string fileName;
+       cin >> fileName;
+
+        vector<Person> randomStudents = randomizePersons();
+
+        outputRandomToFile(fileName, randomStudents);
+    }
+
+    if (studentInputChoice == 3)    // to input information manually into person class and print final grade by average or median by users choice
+    {
+        vector <Person> students = manualInputPerson();
+
+        printGrades_AverOrMed(students);
+    }
+    return 0;
 }

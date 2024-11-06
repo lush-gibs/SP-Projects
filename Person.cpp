@@ -1,4 +1,4 @@
-#include "Person.h"
+#include "Utilities.h"
 
 Person::Person() {
     firstName = "";
@@ -42,33 +42,6 @@ vector <double> Person::getHomework() { return HW; }
 
 double Person::getGrade() { return grade; }
 
-double Median(vector<double>& list) {
-    double Median;
-
-    int length = list.size();
-
-    if (length == 0) return 0;
-
-    sort(list.begin(), list.end());
-
-    if (length % 2 == 0) {
-        int mid = length / 2;
-        int mid1 = mid - 1;
-
-        Median = (list[mid] + list[mid1]) / 2;
-    }
-    else Median = list[length / 2];
-
-    return Median;
-}
-
-double average(vector<double>& list)
-{
-    double average = (accumulate(list.begin(), list.end(), 0.0) / list.size());
-
-    return average;
-}
-
 void Person::calcFinalGrade(int n) {
 
     if (n == 1) {
@@ -90,7 +63,7 @@ void Person::calcAverage()
 istream& operator>>(istream& input, Person& p) {
 
     string firstName, surName;
-    double exam, hw;
+    double exam;
     vector <double> h;
 
     cout << "\nPlease enter student's name and surname: ";
@@ -98,21 +71,34 @@ istream& operator>>(istream& input, Person& p) {
     p.setFirstName(firstName);
     p.setSurname(surName);
 
-    cout << "1. Input Exam Score\t 2. Generate random exam Score\nPlease input option 1 or 2: ";     // collects exam score from user
+    cout << "1. Input Exam Score\t 2. Generate random exam Score" << endl;     // collects exam score from user
     int n;
-    cin >> n;
 
     while(true)                                 // Loop to ask if user wants to input or generate exam score
     {   
-        if (n == 1)
-        {
-            cout << "Please enter student's exam score: ";
-            cin >> exam;
+        cout << "Please input option 1 or 2: ";
+        cin >> n;
 
-            while (exam < 0 || exam > 100)              // loop to collect only valid exam score from 0 to 100
+        if(cin.fail())
+            clearWrongInputs();
+
+        else if (n == 1)
+        {
+            cout << "\nEnter student's exam score" << endl;
+
+            while (true)              // loop to collect only valid exam score from 0 to 100
             {
-                cout << "Invalid Score, Please input exam score from 0 - 100: ";                    
+                cout << "Please input exam score from 0 - 100:  ";
                 cin >> exam;
+
+                if (cin.fail())
+                    clearWrongInputs();
+
+                else if (exam >= 0 && exam <= 100)
+                    break;
+
+                else
+                    cout << "Invalid Score!\n";
             }
 
             p.setExamScore(exam);
@@ -125,45 +111,78 @@ istream& operator>>(istream& input, Person& p) {
             p.setExamScore(exam);
             break;
         }
-        else
-        {
-            cout << "Invalid input! Please input option 1 or 2: ";
-            cin >> n;
-        }
+        else 
+            cout << "Invalid selection!\n";
     }
 
-    cout << "1. Add homework\t 2.No Homework\t 3.Randomize Homework\nPlease input option 1,2 or 3: ";    
+    cout << "\n1. Add homework\t 2.No Homework\t 3.Randomize Homework" << endl; 
     int i; 
-    cin >> i;
-
+  
     while(true)                                                                     // Loop to enter homework scores
     {
-        if (i == 2)
+        cout << "Please input option 1, 2 or 3: ";   
+        cin >> i;
+
+        if (cin.fail())
+            clearWrongInputs();
+
+        else if (i == 2)
             break;
 
         else if (i == 1)
         {
+            string hw;
             int j = 0;
-            do
+
+            while (true)
             {
-                cout << "\nPlease enter '-1' to finish or Input Homework " << ++j << ": ";
+                cout << "\nPlease X to finish or Input Homework " << j + 1 << ": ";
                 cin >> hw;
+                
+                if (hw == "x" || hw == "X" )
+                    break;
+                
+                try 
+                {
+                    double hws = stod(hw);
+                    h.push_back(hws);
+                    j++;
+                }
+                catch(const invalid_argument& e)
+                {
+                    cout << "Invalid input!";
+                }
+            } 
 
-                h.push_back(hw);
-            } while (hw != -1);
-
-            p.setHomework(h);
-            break;
+            if (!h.empty())
+            {
+                p.setHomework(h);
+                break;
+            }
+            else
+                break;
         }
         else if (i == 3)
         {
             cout << "Input number of homeworks to generate randomly: ";
             int j;
-            cin >> j;
+            
+            while(true)
+            {
+                cin >> j;
+
+                if (cin.fail())
+                {
+                    clearWrongInputs();
+                    cout << "Input a number: ";
+                }
+                else
+                    break;
+            }
 
             for (int i = 0; i < j; i++)
             {
-                hw = rand() % 100 + 1.00;           // generates random number for homework between 1 and 100
+               double hw = rand() % 100 + 1.00;           // generates random number for homework between 1 and 100
                 cout << hw << " generated" << endl;
 
                 h.push_back(hw);
@@ -174,8 +193,7 @@ istream& operator>>(istream& input, Person& p) {
         }
         else
         {
-            cout << "Invalid input! Please input option 1,2 or 3: ";
-            cin >> i;
+            cout << "Invalid selection!\n";
         }    
     }
  
