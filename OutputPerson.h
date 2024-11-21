@@ -1,10 +1,12 @@
 #ifndef OutputPerson_H
-#define	OutPutPerson_H
+#define	OutputPerson_H
 
 #include "Utilities.h"
 
-void outputRandomToFile(const string& fileName, vector<Person> students);
+void outputToFile_HW_EX(const string& fileName, vector<Person> students);
 
-void outputSortedGrade(vector <Person>& students);
+void outputVectorToFile_Grade(const string& fileName, vector<Person> students);
+
+void outputSplitGrade_Vect(vector <Person>& students);
 
 #endif

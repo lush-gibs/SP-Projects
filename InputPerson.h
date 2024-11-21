@@ -4,8 +4,15 @@
 #include "Utilities.h"
 
 
-vector<Person> inputFile(const string& fileName);
+vector<Person> inputFileVector(const string& fileName);
 
 vector<Person> manualInputPerson();
+
+/*void inputFile_list(const string& fileName);
+
+void inputFile_Deque(const string& fileName);
+
+void inputFile_Vector(const string& fileName);
+*/
 
 #endif

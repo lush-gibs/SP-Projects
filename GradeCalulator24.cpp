@@ -25,33 +25,10 @@ int main()
 
     if (studentInputChoice == 1)       // Read INPUT from file 
     {
-        /*   cout << "Enter name of file to be read..\nexample, Filename.txt:  ";
-        string nameOfFile;
-        cin >> nameOfFile;*/
+        vector <Person> filePersons = inputFileVector("students10000.txt");
 
-        vector <Person> filePersons = inputFile("students10000.txt");
-        outputSortedGrade(filePersons);
-
-        /*   if (!filePersons.empty())
-        {
-            cout << "\nDo you want to Sort and Split students in two file, passed/failed?";
-            string choice;
-            while (true)
-            {
-                cout << "Input Y/N: ";
-                cin >> choice;
-                if (choice == "Y" || choice == "N" || choice == "n" || choice == "y")
-                    break;
-                else
-                    cout << "invalid selection! ";
-            }
-            if (choice == "Y" || choice == "y")
-                outputSortedGrade(filePersons);
-
-           // printGrades_AverAndMed(filePersons);
-        }
-        else return 1;*/
-        
+		gradeSorter_Vect(filePersons);                  //sorts students by final grade (average)
+        outputSplitGrade_Vect(filePersons);
     }
 
     if (studentInputChoice == 2)            //Output random students to file
@@ -62,7 +39,7 @@ int main()
 
         vector<Person> randomStudents = randomizePersons();
 
-        outputRandomToFile(fileName, randomStudents);
+        outputToFile_HW_EX(fileName, randomStudents);
     }
 
     if (studentInputChoice == 3)    // to input information manually into person class and print final grade by average or median by users choice

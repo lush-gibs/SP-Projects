@@ -82,30 +82,36 @@ vector<Person> randomizePersons()
 		randomStudents.push_back(p);
 	}
 
-    auto duration = high_resolution_clock::now() - start;
+    std::chrono::duration<double> duration = high_resolution_clock::now() - start;
     cout << "\nRandomizing and pushing n number of students into a vector takes " << duration.count() << " seconds\n";
 
 	return randomStudents;
 }
 
-void gradeSorter(vector <Person>& students, vector <Person>& Passed, vector <Person>& Failed)
+void gradeSplitter_Vect(vector <Person>& students, vector <Person>& Passed, vector <Person>& Failed)
+{
+    auto start = high_resolution_clock::now();
+
+    for (auto& s : students)
+    {
+        if (s.getGrade() < 5)
+            Failed.push_back(s);
+        else
+            Passed.push_back(s);
+    }
+
+    std::chrono::duration<double> duration = high_resolution_clock::now() - start;
+	cout << "Time taken to split the vector into two containers: " << duration.count() << " seconds\n";
+}
+
+void gradeSorter_Vect(vector <Person>& students)
 {
 	auto start = high_resolution_clock::now();
 
-    for (auto& student : students)
-    {
-        student.calcFinalGrade(1);
+	sort(students.begin(), students.end(), [](Person& a, Person& b) { return a.getGrade() > b.getGrade(); });
 
-        double grade = student.getGrade();
-
-        if (grade < 5)
-            Failed.push_back(student);
-        else
-            Passed.push_back(student);
-    }
-
-	auto duration = high_resolution_clock::now() - start;
-	cout << "\nTime taken to sort and divide the vector into two containers: " << duration.count() << " seconds\n";
+	std::chrono::duration<double> duration = high_resolution_clock::now() - start;
+	cout << "Time taken to sort the vector of students: " << duration.count() << " seconds\n";
 }
 
 void printGrades_AverAndMed(vector<Person>& students)
@@ -167,4 +173,3 @@ void printGrades_AverOrMed(vector<Person>& students)
         cout << fixed << setw(20) << setprecision(2) << student.getGrade() << endl;
     }
 }
-

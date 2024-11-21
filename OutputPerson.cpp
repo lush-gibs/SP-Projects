@@ -1,6 +1,6 @@
 #include "OutputPerson.h"
 
-void outputRandomToFile(const string& fileName, vector<Person> students)
+void outputToFile_HW_EX(const string& fileName, vector<Person> students)
 {
 	ofstream fileOut(fileName);
 
@@ -21,7 +21,7 @@ void outputRandomToFile(const string& fileName, vector<Person> students)
 		<< setw(15) << "HW6"
 		<< setw(15) << "Exam"
 		<< "\n";
-	
+
 	auto start = high_resolution_clock::now();
 
 	for(auto& s: students)
@@ -31,7 +31,7 @@ void outputRandomToFile(const string& fileName, vector<Person> students)
 
 		for (auto& h: s.getHomework())
 		{
-			fileOut << setw(15) << std::defaultfloat << h;
+			fileOut << setw(15) << std::defaultfloat << h; 
 		}
 
 		fileOut << setw(15) << s.getExamScore();
@@ -40,58 +40,89 @@ void outputRandomToFile(const string& fileName, vector<Person> students)
 	}
 
 	fileOut.close();
-	auto duration = high_resolution_clock::now() - start;
+	std::chrono::duration<double> duration = high_resolution_clock::now() - start;
 
 	cout << "Writing n number of students from a vector to a file takes " << duration.count() << " seconds\n";
 }
 
-void outputSortedGrade(vector <Person>& students)
+void outputSplitGrade_Vect(vector<Person>& students)
 {
-	vector <Person> passed;
-	vector <Person> failed;
+    vector<Person> passed;
+    vector<Person> failed;
+    auto start = high_resolution_clock::now();
 
-	gradeSorter(students, passed, failed); // gradeSorter takes the loaded persons in a vector and two empty vector for to fill with pass and fail students
+    gradeSplitter_Vect(students, passed, failed); // gradeSorter takes the loaded persons in a vector and two empty vector for to fill with pass and fail students
 
-	auto start = high_resolution_clock::now();
+    start = high_resolution_clock::now();
 
-	ofstream fileOut1("Passed_Students.txt");
-	ofstream fileOut2("Failed_Students.txt");
+    ofstream fileOut1("Passed_Students.txt");
+    ofstream fileOut2("Failed_Students.txt");
 
-	if (!fileOut1 || !fileOut2)
+    if (!fileOut1 || !fileOut2)
+    {
+        cerr << "Error while opening or creating passed or failed file";
+        return;
+    }
+
+    fileOut1 << setw(15) << left << "Name"
+             << setw(15) << "Surname"
+             << setw(15) << right << "Final_Grade(Aver. )"
+             << "\n";
+
+    for (auto& s : passed)
+    {
+        fileOut1 << left << setw(15) << s.getfirstName()
+                 << setw(15) << s.getSurname()
+                 << setw(15) << s.getGrade()
+                 << "\n";
+    }
+
+    fileOut2 << setw(15) << left << "Name"
+             << setw(15) << "Surname"
+             << setw(15) << right << "Final_Grade(Aver. )"
+             << "\n";
+
+    for (auto& s : failed)
+    {
+        fileOut2 << left << setw(15) << s.getfirstName()
+                 << setw(15) << s.getSurname()
+                 << setw(15) << s.getGrade()
+                 << "\n";
+    }
+
+    fileOut1.close();
+    fileOut2.close();
+
+    std::chrono::duration<double> duration = high_resolution_clock::now() - start;
+    cout << "Time taken to output sorted student into two new file: " << duration.count() << " seconds\n\n";
+}
+
+void outputVectorToFile_Grade(const string& fileName, vector<Person> students)
+{
+	ofstream fileOut(fileName);
+
+	if (!fileOut)
 	{
-		cerr << "Error while opening or creating passed or failed file";
+		cerr << "File cannot be opened or created!";
 		return;
 	}
 
-	fileOut1 << setw(15) << left << "Name"
-		     << setw(15) << "Surname"
-		     << setw(15) << right << "Final_Grade(Aver. )"
-		      << "\n";
-
-	for (auto& s : passed)
-	{
-		fileOut1 << left << setw(15) << s.getfirstName()
-			<< setw(15) << s.getSurname()
-			<< setw(15) << s.getGrade()
-			<< "\n";
-	}
-
-	fileOut2 << setw(15) <<left << "Name"
+	fileOut << left
+		<< setw(15) << "Name"
 		<< setw(15) << "Surname"
-		<< setw(15) << right << "Final_Grade(Aver. )"
+		<< setw(15) << "Grade"
 		<< "\n";
 
-	for (auto& s : failed)
+	for (auto& s : students)
 	{
-		fileOut2 << left << setw(15) << s.getfirstName()
-			<< setw(15) << s.getSurname()
-			<< setw(15) << s.getGrade()
-			<< "\n";
-	}
+		fileOut << left << setw(15) << s.getfirstName()
+			<< setw(15) << s.getSurname();
 
-	fileOut1.close();
-	fileOut2.close();
+		fileOut << setw(15) << fixed << setprecision(2) << s.getGrade();
 
-	auto duration = high_resolution_clock::now() - start;
-	cout << "Time taken to output sorted student into two new file: " << duration.count() << " seconds\n\n";
+		fileOut << "\n";
+	} 
+
+	fileOut.close();
+
 }

@@ -11,7 +11,9 @@ void clearWrongInputs();
 
 vector<Person> randomizePersons();
 
-void gradeSorter(vector <Person>& students, vector <Person>& Passed, vector <Person>& Failed);
+void gradeSplitter_Vect(vector <Person>& students, vector <Person>& Passed, vector <Person>& Failed);
+
+void gradeSorter_Vect(vector <Person>& students);
 
 void printGrades_AverAndMed(vector<Person>& students);
 
