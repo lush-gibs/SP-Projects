@@ -1,11 +1,11 @@
 Name           Surname        Final_Grade(Aver. )
-Name65         Surname65      8.47           
 Name69         Surname69      8.47           
+Name65         Surname65      8.47           
 Name52         Surname52      8.40           
 Name90         Surname90      8.33           
 Name42         Surname42      8.27           
-Name27         Surname27      8.13           
 Name49         Surname49      8.13           
+Name27         Surname27      8.13           
 Name91         Surname91      7.73           
 Name59         Surname59      7.67           
 Name84         Surname84      7.47           
@@ -28,14 +28,14 @@ Name57         Surname57      6.07
 Name29         Surname29      6.00           
 Name14         Surname14      5.93           
 Name51         Surname51      5.93           
-Name71         Surname71      5.87           
 Name92         Surname92      5.87           
+Name71         Surname71      5.87           
 Name20         Surname20      5.67           
 Name25         Surname25      5.53           
 Name61         Surname61      5.47           
 Name82         Surname82      5.47           
-Name60         Surname60      5.40           
 Name67         Surname67      5.40           
+Name60         Surname60      5.40           
 Name34         Surname34      5.27           
 Name44         Surname44      5.27           
 Name9          Surname9       5.20           
