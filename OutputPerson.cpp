@@ -162,7 +162,7 @@ void outputSplitGrade_Vect(vector<Person>& students)
     {
         fileOut1 << left << setw(15) << s.getfirstName()
                  << setw(15) << s.getSurname()
-                 << setw(15) << s.getGrade()
+                 << setw(15) << fixed << setprecision(2) << s.getGrade()
                  << "\n";
     }
 
@@ -175,7 +175,7 @@ void outputSplitGrade_Vect(vector<Person>& students)
     {
         fileOut2 << left << setw(15) << s.getfirstName()
                  << setw(15) << s.getSurname()
-                 << setw(15) << s.getGrade()
+                 << setw(15) << fixed << setprecision(2) << s.getGrade()
                  << "\n";
     }
 
