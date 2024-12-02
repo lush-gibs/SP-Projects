@@ -46,40 +46,11 @@ int main()
         vector <Person> Split;
         splitGrades_1Vect(filePersonsVector2, Split);
 
-		system("pause");
         list <Person> SplitList;
         splitGrades_1List(filePersonsList2, SplitList);
-        system("pause");
+
         deque <Person> SplitDeque;
         splitGrades_1Deque(filePersonsDeque2, SplitDeque);
-        system("pause");
-
-		/*
-       
-
-       vector <Person> filePersonsVector;
-		list<Person> filePersonsList;
-		deque<Person> filePersonsDeque;
-        
-        cout << "\n";
-
-        filePersonsVector = inputFile_Vector(fileName);
-		filePersonsList = inputFile_list(fileName);
-		filePersonsDeque = inputFile_Deque(fileName);
-
-        cout << "\n";
-
-        gradeSorter_Vect(filePersonsVector);                  //sorts students by descending order of final grade (average)
-		gradeSorter_List(filePersonsList);                 
-        gradeSorter_Deque(filePersonsDeque);
-
-        cout << "\n";
-
-		outputSplitGrade_Vect(filePersonsVector);       //splits students into passed and failed containers and outputs to file
-        outputSplitGrade_list(filePersonsList);
-		outputSplitGrade_deque(filePersonsDeque);
-
-        cout << "\n";*/
     }
 
     if (studentInputChoice == 2)            //Output random students to file
