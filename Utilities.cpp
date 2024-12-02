@@ -123,6 +123,14 @@ void gradeSplitter_2Deques(deque <Person>& students, deque <Person>& Passed, deq
 
 void splitGrades_1Vect(vector<Person>& students,vector<Person>& other)
 {
+	/*
+	gradeSorter_Vect(students);
+
+	auto it = std::find_if(students.begin(), students.end(), [](Person& s) {return s.getGrade() < 5; });
+
+	other = vector<Person>(it, students.end());
+	students.erase(it, students.end());
+	*/
 	auto start = high_resolution_clock::now();
 
 	auto it = std::partition(students.begin(), students.end(), [](Person& s) {return s.getGrade() >= 5; });
@@ -130,7 +138,7 @@ void splitGrades_1Vect(vector<Person>& students,vector<Person>& other)
 	other = vector<Person> (it, students.end());
 
 	students.erase(it, students.end());
-
+	
 	std::chrono::duration<double> duration = high_resolution_clock::now() - start;
 	cout << "Time taken to split the vector into one container and resize: " << duration.count() << " seconds\n";
 }

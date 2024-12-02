@@ -28,29 +28,16 @@ int main()
         string fileName = "students10000.txt";
 
         auto filePersonsVector = inputFile_Vector(fileName);
-        auto filePersonsList = inputFile_list(fileName);
-        auto filePersonsDeque = inputFile_Deque(fileName);
+       
+        vector<Person> other;
 
-        auto filePersonsVector2 = filePersonsVector;
-		auto filePersonsList2 = filePersonsList;    
-		auto filePersonsDeque2 = filePersonsDeque;
+		splitGrades_1Vect(filePersonsVector, other);
 
-        cout << "\n\n";
+        cout << "\n";
+		gradeSorter_Vect(filePersonsVector);
+        gradeSorter_Vect(other);
 
-        outputSplitGrade_Vect(filePersonsVector);
-        outputSplitGrade_list(filePersonsList);
-        outputSplitGrade_deque(filePersonsDeque);
-
-        cout << "\n\n";
-
-        vector <Person> Split;
-        splitGrades_1Vect(filePersonsVector2, Split);
-
-        list <Person> SplitList;
-        splitGrades_1List(filePersonsList2, SplitList);
-
-        deque <Person> SplitDeque;
-        splitGrades_1Deque(filePersonsDeque2, SplitDeque);
+        outputSplitGrade_VectA(filePersonsVector, other);
     }
 
     if (studentInputChoice == 2)            //Output random students to file

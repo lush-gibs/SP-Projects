@@ -321,7 +321,6 @@ void outputSplitGrade_deque(deque <Person>& students)
 
 void outputSplitGrade_VectA(vector<Person>& students,vector<Person>& other)
 {
-	auto start = high_resolution_clock::now();
 
 	ofstream fileOut1("Passed_Students_Vector.txt");
 	ofstream fileOut2("Failed_Students_Vector.txt");
@@ -361,6 +360,85 @@ void outputSplitGrade_VectA(vector<Person>& students,vector<Person>& other)
 	fileOut1.close();
 	fileOut2.close();
 
-	std::chrono::duration<double> duration = high_resolution_clock::now() - start;
-	cout << "Time taken to output sorted student in vector into two new file: " << duration.count() << " seconds\n\n";
+}
+
+void outputSplitGrade_ListA(list<Person>& students, list<Person>& other){
+	ofstream fileOut1("Passed_Students_Vector.txt");
+	ofstream fileOut2("Failed_Students_Vector.txt");
+
+	if (!fileOut1 || !fileOut2)
+	{
+		cerr << "Error while opening or creating passed or failed file";
+		return;
+	}
+
+	fileOut1 << setw(15) << left << "Name"
+		<< setw(15) << "Surname"
+		<< setw(15) << right << "Final_Grade(Aver. )"
+		<< "\n";
+
+	for (auto& s : students)
+	{
+		fileOut1 << left << setw(15) << s.getfirstName()
+			<< setw(15) << s.getSurname()
+			<< setw(15) << fixed << setprecision(2) << s.getGrade()
+			<< "\n";
+	}
+
+	fileOut2 << setw(15) << left << "Name"
+		<< setw(15) << "Surname"
+		<< setw(15) << right << "Final_Grade(Aver. )"
+		<< "\n";
+
+	for (auto& s : other)
+	{
+		fileOut2 << left << setw(15) << s.getfirstName()
+			<< setw(15) << s.getSurname()
+			<< setw(15) << fixed << setprecision(2) << s.getGrade()
+			<< "\n";
+	}
+
+	fileOut1.close();
+	fileOut2.close();
+
+}
+
+void outputSplitGrade_DequeA(deque<Person>& students, deque<Person>& other){
+	ofstream fileOut1("Passed_Students_Vector.txt");
+	ofstream fileOut2("Failed_Students_Vector.txt");
+
+	if (!fileOut1 || !fileOut2)
+	{
+		cerr << "Error while opening or creating passed or failed file";
+		return;
+	}
+
+	fileOut1 << setw(15) << left << "Name"
+		<< setw(15) << "Surname"
+		<< setw(15) << right << "Final_Grade(Aver. )"
+		<< "\n";
+
+	for (auto& s : students)
+	{
+		fileOut1 << left << setw(15) << s.getfirstName()
+			<< setw(15) << s.getSurname()
+			<< setw(15) << fixed << setprecision(2) << s.getGrade()
+			<< "\n";
+	}
+
+	fileOut2 << setw(15) << left << "Name"
+		<< setw(15) << "Surname"
+		<< setw(15) << right << "Final_Grade(Aver. )"
+		<< "\n";
+
+	for (auto& s : other)
+	{
+		fileOut2 << left << setw(15) << s.getfirstName()
+			<< setw(15) << s.getSurname()
+			<< setw(15) << fixed << setprecision(2) << s.getGrade()
+			<< "\n";
+	}
+
+	fileOut1.close();
+	fileOut2.close();
 }
