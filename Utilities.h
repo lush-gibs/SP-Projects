@@ -11,11 +11,17 @@ void clearWrongInputs();
 
 vector<Person> randomizePersons();
 
-void gradeSplitter_Vect(vector <Person>& students, vector <Person>& Passed, vector <Person>& Failed);
+void gradeSplitter_2Vects(vector <Person>& students, vector <Person>& Passed, vector <Person>& Failed);
 
-void gradeSplitter_List(list <Person>& students, list <Person>& Passed, list <Person>& Failed);
+void gradeSplitter_2Lists(list <Person>& students, list <Person>& Passed, list <Person>& Failed);
 
-void gradeSplitter_Deque(deque <Person>& students, deque <Person>& Passed, deque <Person>& Failed);
+void gradeSplitter_2Deques(deque <Person>& students, deque <Person>& Passed, deque <Person>& Failed);
+
+void splitGrades_1Vect(vector<Person>& students, vector<Person>& other);
+
+void splitGrades_1List(list<Person>& students,list<Person>& other);
+
+void splitGrades_1Deque(deque<Person>& students,deque<Person>& other);
 
 void gradeSorter_Vect(vector <Person>& students);
 

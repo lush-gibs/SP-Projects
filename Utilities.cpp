@@ -88,53 +88,75 @@ vector<Person> randomizePersons()
 	return randomStudents;
 }
 
-void gradeSplitter_Vect(vector <Person>& students, vector <Person>& Passed, vector <Person>& Failed)
+void gradeSplitter_2Vects(vector <Person>& students, vector <Person>& Passed, vector <Person>& Failed)
 {
     auto start = high_resolution_clock::now();
 
-    for (auto& s : students)
-    {
-        if (s.getGrade() < 5)
-            Failed.push_back(s);
-        else
-            Passed.push_back(s);
-    }
+	auto it = std::partition(students.begin(), students.end(), [](Person& s) {return s.getGrade() >= 5; });
 
-    std::chrono::duration<double> duration = high_resolution_clock::now() - start;
+	Passed = vector<Person>(students.begin(), it);
+	Failed = vector<Person>(it, students.end());
+
+	std::chrono::duration<double> duration = high_resolution_clock::now() - start;
 	cout << "Time taken to split the vector into two containers: " << duration.count() << " seconds\n";
 }
 
-void gradeSplitter_List(list <Person>& students, list <Person>& Passed, list <Person>& Failed)
+void gradeSplitter_2Lists(list <Person>& students, list <Person>& Passed, list <Person>& Failed)
 {
 	auto start = high_resolution_clock::now();
 
-	for (auto& s : students)
-	{
-		if (s.getGrade() < 5)
-			Failed.push_back(s);
-		else
-			Passed.push_back(s);
-	}
+	std::partition_copy(students.begin(), students.end(), back_inserter(Passed), back_inserter(Failed), [](Person& s) {return s.getGrade() >= 5; });
 
 	std::chrono::duration<double> duration = high_resolution_clock::now() - start;
 	cout << "Time taken to split the list into two containers: " << duration.count() << " seconds\n";
 }
 
-void gradeSplitter_Deque(deque <Person>& students, deque <Person>& Passed, deque <Person>& Failed)
+void gradeSplitter_2Deques(deque <Person>& students, deque <Person>& Passed, deque <Person>& Failed)
 {
 	auto start = high_resolution_clock::now();
 
-	for (auto& s : students)
-	{
-		if (s.getGrade() < 5)
-			Failed.push_back(s);
-		else
-			Passed.push_back(s);
-	}
+	std::partition_copy(students.begin(), students.end(), back_inserter(Passed), back_inserter(Failed), [](Person& s) {return s.getGrade() >= 5; });
 
 	std::chrono::duration<double> duration = high_resolution_clock::now() - start;
 	cout << "Time taken to split the deque into two containers: " << duration.count() << " seconds\n";
 }
+
+void splitGrades_1Vect(vector<Person>& students,vector<Person>& other)
+{
+	auto start = high_resolution_clock::now();
+
+	auto it = std::partition(students.begin(), students.end(), [](Person& s) {return s.getGrade() >= 5; });
+
+	other = vector<Person> (it, students.end());
+
+	students.erase(it, students.end());
+
+	std::chrono::duration<double> duration = high_resolution_clock::now() - start;
+	cout << "Time taken to split the vector into one container and resize: " << duration.count() << " seconds\n";
+}
+
+void splitGrades_1List(list<Person>& students, list<Person>& other)
+{
+	auto start = high_resolution_clock::now();
+
+    students.remove_if([&other](Person& s) {if (s.getGrade() < 5) { other.push_back(s); return true; } return false;});
+
+	std::chrono::duration<double> duration = high_resolution_clock::now() - start;
+	cout << "Time taken to split the list into one container: " << duration.count() << " seconds\n";
+}
+ 
+void splitGrades_1Deque(deque<Person>& students, deque<Person>& other)
+ {
+	auto start = high_resolution_clock::now();
+
+	auto it = std::remove_if(students.begin(), students.end(), [&other](Person& s) {if (s.getGrade() < 5) { other.push_back(s); return true;} return false;});
+
+	students.erase(it, students.end());
+
+	std::chrono::duration<double> duration = high_resolution_clock::now() - start;
+
+	cout << "Time taken to split the deque into one container and resize: " << duration.count() << " seconds\n";
+ }
 
 void gradeSorter_Vect(vector <Person>& students)
 {

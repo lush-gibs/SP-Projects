@@ -5,7 +5,7 @@
 int main()
 {
     srand(time(0));     //seed for rand function to generate from time
-
+    
     cout << "1.Input students from file\t2.Output Random Students to file\t3.Input students manually\n" << endl;
     int studentInputChoice;
 
@@ -25,9 +25,39 @@ int main()
 
     if (studentInputChoice == 1)       // Read INPUT from file 
     {
-		string fileName = "students100000.txt";
+        string fileName = "students10000.txt";
 
-        vector <Person> filePersonsVector;
+        auto filePersonsVector = inputFile_Vector(fileName);
+        auto filePersonsList = inputFile_list(fileName);
+        auto filePersonsDeque = inputFile_Deque(fileName);
+
+        auto filePersonsVector2 = filePersonsVector;
+		auto filePersonsList2 = filePersonsList;    
+		auto filePersonsDeque2 = filePersonsDeque;
+
+        cout << "\n\n";
+
+        outputSplitGrade_Vect(filePersonsVector);
+        outputSplitGrade_list(filePersonsList);
+        outputSplitGrade_deque(filePersonsDeque);
+
+        cout << "\n\n";
+
+        vector <Person> Split;
+        splitGrades_1Vect(filePersonsVector2, Split);
+
+		system("pause");
+        list <Person> SplitList;
+        splitGrades_1List(filePersonsList2, SplitList);
+        system("pause");
+        deque <Person> SplitDeque;
+        splitGrades_1Deque(filePersonsDeque2, SplitDeque);
+        system("pause");
+
+		/*
+       
+
+       vector <Person> filePersonsVector;
 		list<Person> filePersonsList;
 		deque<Person> filePersonsDeque;
         
@@ -49,7 +79,7 @@ int main()
         outputSplitGrade_list(filePersonsList);
 		outputSplitGrade_deque(filePersonsDeque);
 
-        cout << "\n";
+        cout << "\n";*/
     }
 
     if (studentInputChoice == 2)            //Output random students to file

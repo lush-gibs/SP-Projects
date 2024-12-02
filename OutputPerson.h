@@ -17,4 +17,6 @@ void outputSplitGrade_list(list <Person>& students);
 
 void outputSplitGrade_deque(deque <Person>& students);
 
+void outputSplitGrade_VectA(vector<Person>& students,vector<Person>& other);
+
 #endif
