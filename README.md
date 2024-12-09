@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/f8ef8d32-3208-4ce7-bca5-7ea877508031)# SP-Projects
+ SP-Projects
 Systemic Programmic task in VVK 2024/2025
 
 -- intro about futured application----
@@ -7,7 +7,7 @@ Basic student points calculation formula:
 
 Final	points = 0.4 * (Average of HW|Median of HW) + 0.6 * Exam 
 
-                                      Releases
+  **Releases**
 **Release v0.1**
 
 This is the basic structure for the grade calculator. In this release, a Person class is implemented, containing various methods and attributes, including the Rule of Three.
@@ -81,9 +81,8 @@ o	Added CMakeLists.txt and runMe.bat to streamline building and running the prog
 Overall the vector container with the new implemented algorithms was the preferred container to perform the task required.
  
 
-
-                                  Application User Guide
-
+**Application User Guide
+**
 Setup and Installation
 
 Requirements:
@@ -153,7 +152,7 @@ Output: The program displays the results on the console.
 
 
 
-**observation**********************
+******************************************************OBSERVATION**************************************
 
 
 
